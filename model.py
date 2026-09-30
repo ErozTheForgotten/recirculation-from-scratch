@@ -51,8 +51,24 @@ def gelu_ffn(x, w_ff1, w_ff2):
 
     return gelu_func @ w_ff2
 
-# Step 4 - pre_norm_block (not yet solved)
-# TODO: implement
+# Step 4 - pre_norm_block
+def pre_norm_block(x, block):
+    """Wrap attention and feed-forward as a pre-norm residual transformer block."""
+    
+
+    norm_sa = rms_norm(x, block["attn_gain"])
+
+    c_s_a = causal_self_attention(norm_sa, block["w_q"], block["w_k"], block["w_v"], block["w_o"])
+
+    x_aftr_attn = x + c_s_a
+
+    norm_ffn = rms_norm(x_aftr_attn, block["ffn_gain"])
+
+    gelu = gelu_ffn(norm_ffn, block["w_ff1"], block["w_ff2"])
+
+    x_after_gelu = x_aftr_attn + gelu
+
+    return x_after_gelu
 
 # Step 5 - embed_tokens (not yet solved)
 # TODO: implement
