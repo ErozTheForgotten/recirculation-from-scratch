@@ -135,8 +135,25 @@ def no_normalization_mix(s, d, alpha):
 
     return d_prime
 
-# Step 12 - recirculate_one_position (not yet solved)
-# TODO: implement
+# Step 12 - recirculate_one_position
+def recirculate_one_position(residuals, t, source_layer, dest_layer, alpha, blocks):
+    """Mix source into dest at time t then re-run blocks from dest onward."""
+    
+    new_residuals = list(residuals)
+
+    current = residuals[dest_layer].clone()
+
+    current[:, t, :] = convex_mix(residuals[source_layer][:, t, :], residuals[dest_layer][:, t, :], 
+    alpha)
+
+
+    new_residuals[dest_layer] = current
+
+    for i in range(dest_layer, len(blocks)):
+        current = pre_norm_block(current, blocks[i])
+        new_residuals[i + 1] = current
+
+    return new_residuals
 
 # Step 13 - ramped_alpha (not yet solved)
 # TODO: implement
