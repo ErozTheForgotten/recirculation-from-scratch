@@ -96,8 +96,19 @@ def last_axis_l2(x):
     
     return torch.linalg.norm(x, dim=-1, keepdim=True)
 
-# Step 8 - match_source_norm (not yet solved)
-# TODO: implement
+# Step 8 - match_source_norm
+def match_source_norm(s, d):
+    """Rescale s so its last-axis L2 matches d."""
+    norm_d = last_axis_l2(d)
+    norm_s = last_axis_l2(s)
+
+    scale = torch.where(
+        norm_s == 0,
+        torch.zeros_like(norm_s),
+        norm_d / norm_s)
+
+
+    return scale * s
 
 # Step 9 - convex_mix (not yet solved)
 # TODO: implement
