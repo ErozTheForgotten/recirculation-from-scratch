@@ -118,8 +118,13 @@ def convex_mix(s, d, alpha):
 
     return d_prime
 
-# Step 10 - nonconvex_mix (not yet solved)
-# TODO: implement
+# Step 10 - nonconvex_mix
+def nonconvex_mix(s, d, alpha):
+    """Nonconvex mix: destination plus a scaled matched source."""
+    
+    d_prime = (d + (alpha * match_source_norm(s,d)))
+
+    return d_prime
 
 # Step 11 - no_normalization_mix (not yet solved)
 # TODO: implement
