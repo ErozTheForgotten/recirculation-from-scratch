@@ -77,8 +77,17 @@ def embed_tokens(tokens, embedding_weight):
     
     return embedding_weight[tokens]
 
-# Step 6 - run_layers (not yet solved)
-# TODO: implement
+# Step 6 - run_layers
+def run_layers(x, blocks):
+    """Return residual streams after every layer including the embedding as index 0."""
+    
+    streams = [x]
+
+    for block in blocks:
+       x = pre_norm_block(x, block)
+       streams.append(x)
+
+    return streams
 
 # Step 7 - last_axis_l2 (not yet solved)
 # TODO: implement
