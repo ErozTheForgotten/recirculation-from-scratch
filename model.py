@@ -126,8 +126,14 @@ def nonconvex_mix(s, d, alpha):
 
     return d_prime
 
-# Step 11 - no_normalization_mix (not yet solved)
-# TODO: implement
+# Step 11 - no_normalization_mix
+def no_normalization_mix(s, d, alpha):
+    """Mix source into destination with no renormalization using the raw source."""
+    # TODO: Mix source into destination with no renormalization using the raw source.
+    
+    d_prime = (((1 - alpha) * d) + (alpha * s))
+
+    return d_prime
 
 # Step 12 - recirculate_one_position (not yet solved)
 # TODO: implement
