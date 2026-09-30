@@ -110,8 +110,13 @@ def match_source_norm(s, d):
 
     return scale * s
 
-# Step 9 - convex_mix (not yet solved)
-# TODO: implement
+# Step 9 - convex_mix
+def convex_mix(s, d, alpha):
+    """Convex mix of destination with a magnitude-matched source."""
+
+    d_prime = (((1 - alpha) * d) + (alpha * match_source_norm(s, d)))
+
+    return d_prime
 
 # Step 10 - nonconvex_mix (not yet solved)
 # TODO: implement
